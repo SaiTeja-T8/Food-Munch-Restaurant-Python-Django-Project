@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="{% static 'JsCodePages/PaymentSection.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'Food_Munch_Css_Styles/Payment_Section.css' %}">
+    </head>
+    <body class="outer-container">
+        <div>
+            {% if ErrorFlag %}
+                {% for Error in ErrorMsgList %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ Error }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="container">
+            <form method="POST" action="{% url 'paymentgateway' %}">
+                {% csrf_token %}
+                <a href="{% url 'RestrauntMainPage' UserId %}"><img src="https://static.vecteezy.com/system/resources/previews/019/858/315/non_2x/back-flat-color-outline-icon-free-png.png" style="height:30px;width:30px;" alt="back-image"/></a>
+                <div class="row">
+                    <div class="col">
+                        <h3 class="title">Billing Address</h3>
+                        <div class="inputBox">
+                            <label for="name" style="font-weight:bold;"><img src="https://media.lordicon.com/icons/wired/lineal/673-female-doctor-care.gif" style="height:20px;width:20px;background-color:white;border:none;margin-top:-3px;margin-right:10px;"/>Full Name</label>
+                            <input type="text" id="name" name="CustomerFullName" placeholder="Enter your full name" maxlength="100" value="{{CustomerName}}" autocomplete="off" required>
+                        </div>
+                        <div class="inputBox">
+                            <label for="email" style="font-weight:bold;"><img src="https://cdn-icons-gif.flaticon.com/8717/8717946.gif" style="height:20px;width:20px;background-color:white;border:none;margin-top:-3px;margin-right:10px;"/>Email </label>
+                            <input type="text" id="email" name="CustomerEmailId" placeholder="Enter email address" value="{{CustomerEmailId}}" autocomplete="off" required>
+                        </div>
+                        <div class="inputBox">
+                            <label for="mobile" style="font-weight:bold;"><img src="https://media.tenor.com/8MUhCCmWWOYAAAAM/telephone-call.gif" style="height:20px;width:20px;background-color:white;border:none;margin-top:-3px;margin-right:10px;"/>Mobile Number </label>
+                            <input type="text" id="mobile" name="CustomerMobileNumber" placeholder="Enter mobile number" maxlength="10" value="{{CustomerMobileNumer}}" autocomplete="off" required>
+                        </div>
+                        <div class="inputBox">
+                            <label for="address" style="font-weight:bold;"><img src="https://cdnl.iconscout.com/lottie/premium/thumb/smart-home-4721684-3923554.gif" style="height:20px;width:20px;background-color:white;border:none;margin-top:-3px;margin-right:10px;"/>Address </label>
+                            <input type="text" id="address" name="CustomerAddress" placeholder="Enter address" maxlength="100" autocomplete="off" required>
+                        </div>
+                        <div class="inputBox">
+                            <label for="city" style="font-weight:bold;"><img src="https://cdn-icons-gif.flaticon.com/11617/11617176.gif" style="height:20px;width:20px;background-color:white;border:none;margin-top:-3px;margin-right:10px;"/>City  </label>
+                            <input type="text" id="city" name="CustomerCity" placeholder="Enter city" maxlength="50" autocomplete="off" required>
+                        </div>
+                        <div class="flex">
+                            <div class="inputBox">
+                                <label for="state" style="font-weight:bold;">State </label>
+                                <select id="state" name="CustomerState" required>
+                                    <option value="">Select State</option>
+                                </select>
+                            </div>
+                            <div class="inputBox">
+                                <label for="zip" style="font-weight:bold;"><img src="https://media.lordicon.com/icons/wired/lineal/2264-pin-pad.gif" style="height:20px;width:20px;background-color:white;border:none;margin-top:-3px;margin-right:10px;"/>Zip Code </label>
+                                <input type="text" id="zip" name="CustomerPinCode" placeholder="123456" maxlength="6" autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h3 class="title">Payment</h3>
+                        <div id="product-container"></div>
+                        <div class="inputBox">
+                            <label for="paymentType" style="font-weight:bold;">Select Payment Method</label>
+                            <select id="paymentType" style="font-weight:bold;" name="CustomerPaymentMethod" required>
+                                <option value="">Choose Payment Method</option>
+                                <option value="card">Card Payment</option>
+                                <option value="phonePe">Phone Pay</option>
+                                <option value="payPal">Pay Pal</option>
+                            </select>
+                        </div>    
+                        <div id="cardPaymentFields">
+                            <div class="inputBox">
+                                <label for="cardName" style="font-weight:bold;">Name on Card </label>
+                                <input type="text" id="cardName" name="CustomerCardName" placeholder="Enter card name" autocomplete="off" required>
+                            </div>
+                            <div class="inputBox">
+                                <label for="cardNum" style="font-weight:bold;">Credit Card Number </label>
+                                <input type="text" id="cardNum" name="CustomerCardNumber" placeholder="1111 2222 3333 4444" maxlength="19" autocomplete="off" required>
+                            </div>
+                            <div class="flex">
+                                <div class="inputBox">
+                                    <label for="expirydate" style="font-weight:bold;">Expiry Date </label>
+                                    <input type="text" id="expirydate" name="CustomerCardExpiry" placeholder="mm/yyyy" maxlength="7" autocomplete="off" required>
+                                </div>
+                                <div class="inputBox">
+                                    <label for="cvv" style="font-weight:bold;">Cvv </label>
+                                    <input type="text" id="cvv" name="CustomerCvv" placeholder="123" maxlength="3" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="phonePeText" style="display: none;" class="text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="Phone Pe" style="height:250px;width:250px;"/>
+                            <p style="font-size:16px;color:green;font-weight:bold;">Scan the QR Code in Phone Pe mobile app to complete payment</p>
+                        </div>
+                        <div id="payPalText" style="display: none;">
+                            <p style="font-size:14px;color:red;font-weight:bold;text-align:center;"><img src="https://static.vecteezy.com/system/resources/previews/007/158/753/non_2x/exclamation-mark-icon-for-website-symbol-presentation-free-vector.jpg" alt="Pay Pal" style="height:25px;width:25px;"/>This payment method is currently not avaliable at the moment.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" style="width:100%;" class="btn btn-outline-success" value="Proceed to Checkout" class="submit_btn">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

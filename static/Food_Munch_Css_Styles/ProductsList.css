@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
+.Similar-Products-heading{
+    color:#D83F87;
+    font-size:40px;
+    font-weight:bold;
+    margin-left:40px;
+}
+
+
+.product-image {
+    border-radius:16px;
+    width:117%;
+    margin-left:-10px;
+}
+
+.product-image-1{
+    border-radius:16px;
+    width:113%;
+    margin-left:-5px;
+}
+
+.card-body {
+    margin-left:-20px;
+}
+
+.product-heading {
+    font-family:"Roboto";
+    font-size:20px;
+    color:#D83F87;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+
+/* Add any required styles for the animation */
+.image-clone {
+    position: absolute;
+    z-index: 1000;
+    transition: all 0.8s ease-in-out;
+}
+
+
+.product-image-clone {
+    position: absolute;
+    z-index: 1000;
+    transition: all 1s ease-in-out;
+}

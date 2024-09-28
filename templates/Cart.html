@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBn9E+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="{% static 'JsCodePages/Cart.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'Food_Munch_Css_Styles/Cart.css' %}">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a href="{% url 'exploremenu' %}" class="navbar-brand"><img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Food_Munch_Logo_Section_Image/' %}food-munch-logo.png" style="height:70px;width:80px;" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" id="search-input" type="search" placeholder="Search For your Favourite Food" aria-label="Search" style="outline:none;box-shadow:none;border-color:#D83F87;width:70%;border-style:solid;border-width:2px;font-family:'Roboto';font-size:18px;color:green;font-weight:bold;">
+                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left:-5px;" type="submit">Search</button>
+            </form>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'exploremenu' %}" style="font-family:'Roboto';font-size:18px;color:black;font-weight:bold;">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="" style="font-family:'Roboto';font-size:18px;color:black;font-weight:bold;">Follow Us</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a style="text-decoration:none;border:none;" href="{% url 'Cart View' %}"><img src="{% static 'Star_Pattern/Shopping-Cart-Image.png' %}" style="height:35px;width:35px;border:none;" alt="Cart"/><h1 style="margin-top:-17px;font-size:18px;margin-left:25px;font-weight:bold;font-family:'Roboto';"><span style="color:#D83F87;font-weight:bold;font-family:'Roboto';">{{CartItemCount}}</span></h1></a>
+                    </li>
+                    <li class="nav-item active">
+                        <h1 style="font-family:'Roboto';font-size:18px;color:navy;margin-top:3px;font-weight:bold;" class="nav-link">Login User :  <span style="color: green;font-weight:bold;">{{LoginMember}}</span></h1>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'Log Out' %}"> <span style="color:red;font-weight:bold;font-size:18px;">Logout</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="Container-1 mt-4">
+                        <h1 class="CartHeading">Your Cart consists of ({{CartItemCount}} items)</h1>
+                    </div>
+                </div>
+                <div class="col-12 mt-5">
+                    <div class="Item-Container shadow-lg">
+                        <div class="row item-header mt-4">
+                            <div class="col-4 text-center Item-Description">Item</div>
+                            <div class="col-2 text-center Item-Description">Total Cost</div>
+                            <div class="col-3 text-center Item-Description">Adjust Quantity</div>
+                            <div class="col-3 text-center Item-Description">Total Quantity</div>
+                        </div>
+                        <div class="item-list">
+                            {% if not CartItemsList %}
+                                <div>
+                                    <h1 class="EmptyCart">Cart is Empty</h1>
+                                </div>
+                            {% else %}
+                                {% for Item in CartItemsList %}
+                                    <div class="row item-row align-items-center ml-3 mt-3" data-product-name="{{Item.ProductName}}">
+                                        <div class="col-4 d-flex align-items-center">
+                                            <img src="{{Item.ProductImage}}" alt="{{Item.ProductName}}" class="ItemImage"/>
+                                            <div class="ml-3">
+                                                <h1 class="ItemName">{{Item.ProductName}}</h1>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <h1 class="ItemName" id="cost-{{ forloop.counter }}" data-unit-cost="{{Item.ProductCost}}">${{Item.ProductCost}}</h1>
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <form action="{% url 'Update Cart Quantity' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{Item.id}}">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <button class="btn btn-danger mx-1" onclick="AdjustQuantity(this, 'decrease')">-</button>
+                                                    <input type="text" id="quantity-{{ forloop.counter }}" value="{{ Item.ProductQuantity }}" class="form-control text-center quantity-input" style="width: 50px;font-family:'Roboto';font-weight:bold;" disabled>
+                                                    <button class="btn btn-success mx-1" onclick="AdjustQuantity(this, 'increase')">+</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <h1 class="ItemName" id="total-{{ forloop.counter }}">{{ Item.ProductQuantity }}</h1>
+                                        </div>
+                                        <div class="col-1 text-center delete-section">
+                                            <form action="{% url 'Delete Cart Item' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{Item.id}}">
+                                                <input type="hidden" name="quantity" value="{{Item.ProductQuantity}}">
+                                                <button type="submit" class="DeleteIconFunc">
+                                                    <img src="{% static 'Star_Pattern/DeleteIcon.gif' %}" style="height:35px;width:35px;border:none;border-width:0px;" />
+                                                </button>
+                                            </form>
+                                        </div>                                        
+                                    </div>
+                                {% endfor %}
+                                <br/>
+                            {% endif %}
+                        </div>
+                        <div id="cart-value-container" data-cart-items-value={{CartItemCount}}></div>
+                        <form id="checkoutForm" action="{% url 'paymentgateway' %}" method="GET">
+                            {% for Item in CartList %}
+                                <input type="hidden" name="ProductName{{ forloop.counter }}" value="{{ Item.ProductName }}">
+                                <input type="hidden" name="ProductCost{{ forloop.counter }}" value="{{ Item.ProductCost }}">
+                                <input type="hidden" name="ProductImage{{ forloop.counter }}" value="{{ Item.ProductImage.url }}">
+                                <input type="hidden" name="ProductQuantity{{ forloop.counter }}" value="{{ Item.ProductQuantity }}">
+                            {% endfor %}
+                            <div class="d-flex flex-row justify-content-center mb-3">
+                                <div>
+                                    <button class="btn btn-outline-dark" id="CheckoutButton" data-my-value="{{CartItemCount}}">Check Out</button>
+                                </div>
+                            </div>
+                        </form>
+                        <p id="ExploreProductsText" class="text-center">Explore and order Your favorite and delicous recipies.</p>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" id="ExploreProducts" onclick="location.href='{% url 'RestrauntMainPage' UserId %}'" class="btn btn-outline-info mb-5">Main Menu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

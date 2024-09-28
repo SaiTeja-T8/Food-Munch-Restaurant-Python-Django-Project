@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/20c5629a29.js" crossorigin="anonymous"></script>
+        <script src="{% static 'JsCodePages/BasicRestaurantStructure.js' %}"></script>
+        <link rel="stylesheet" href="/static/Food_Munch_Css_Styles/Food_Munch_Main_Page.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <div class="container">
+                <a href="#" data-toggle="modal" data-target="#food-munch-model-details" class="navbar-brand"><img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Food_Munch_Logo_Section_Image/' %}food-munch-logo.png" class="munch-navbar-image" /></a>       
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-link active navbar_links" href="#WHY-CHOOSE-US-section">Why Choose Us<span class="sr-only">(current)</span></a>
+                        <a class="nav-link navbar_links" href="#EXPLORE-MENU-section">Explore Menu</a>
+                        <a class="nav-link navbar_links" href="#D&Psection">Delivery & Payment</a>
+                        <a class="nav-link navbar_links" href="#address-section">Follow Us</a>
+                        <a style="text-decoration:none;border:none;" href="{% url 'Cart View' %}"><img src="{% static 'Star_Pattern/Shopping-Cart-Image.png' %}" style="height:35px;width:35px;border:none;" alt="Cart"/><h1 style="margin-top:-17px;font-size:18px;margin-left:25px;font-weight:bold;font-family:'Roboto';"><span style="color:#D83F87;font-weight:bold;font-family:'Roboto';">{{CartItemCount}}</span></h1></a>
+                        <h1 style="font-family:'Roboto';font-size:18px;color:navy;margin-top:3px;font-weight:bold;" class="nav-link">Login User :  <span style="color: green;font-weight:bold;">{{LoginMember}}</span></h1>
+                        <a class="nav-link" href="{% url 'Log Out' %}"> <span style="color:red;font-weight:bold;font-size:18px;">Logout</span></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="munch-banner-section d-flex flex-column justify-content-center" id="homesection">
+            <h1 class="munch-heading">Get Delicious Food Anytime</h1>
+            <p class="munch-para">Eat smart & Healthy</p>
+            <div class="d-flex flex-row justify-content-center SearchContainer">
+                <form class="d-flex flex-row justify-content-center" style="width:33%; position:relative;">
+                    {% csrf_token %}
+                    <input id="SearchInput" name="QuerySearch" class="form-control me-2" type="search" placeholder="Search For your Favourite and Delicious Food" aria-label="Search" autocomplete="off" style="outline:none;box-shadow:none;font-family:'Roboto';font-size:18px;font-weight:bold;">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <div id="SearchResults" class="search-results" style="position:absolute; top:100%; left:0; width:100%; z-index:100; max-height:150px; overflow-y:auto; background-color:white;border:1px;width:82%;display:none;border-radius:10px"></div>
+                </form>
+                <div id="urlContainer" data-products-list-url="{% url 'Products List' %}"></div>
+                <div id="AllProducts" style="display:none;">
+                    {% for Item in ProductItemsList %}
+                        <div class="ProductItem" data-id="{{ Item.id }}" data-name="{{ Item.ProductName }}" data-image="{{ Item.ProductImage.url }}" data-cost="{{ Item.ProductCost }}"> 
+                            <img src="{{ Item.ProductImage.url }}" alt="{{ Item.ProductName }}" class="ProductImage"/>
+                            <span class="ProductName">{{ Item.ProductName }}</span>
+                            <span class="ProductId">{{ Item.ProductId }}</span>
+                            <span class="ProductCost">{{ Item.ProductCost }}</span>
+                        </div>
+                    {% endfor %}
+                </div>                
+            </div>
+        </div>        
+        <div class="why-choose-us-section" id="WHY-CHOOSE-US-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="wcu-heading">Why Choose Us?</h1>
+                        <p class="wcu-para">We use both orginal recipes and classic versions of famous food items.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 d-flex flex-row justify-content-center mb-3 mt-3">
+                        <div class="wcu-main-section text-center">
+                            <img src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-responsive-website/food-serve.png" class="wcu-card-image mt-2" />
+                            <p class="wcu-card-title mt-2">Food Service</p>
+                            <p class="wcu-card-description">Experience fine dining at the comfort of your home. All our orders are carefully packed and arranged to give you the nothing less than perfect.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 d-flex flex-row justify-content-center mb-3 mt-3">
+                        <div class="wcu-main-section text-center">
+                            <img src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-responsive-website/fruits-img.png" class="wcu-card-image" />
+                            <p class="wcu-card-title mt-2">Fresh Food</p>
+                            <p class="wcu-card-description">The Fresh Food group provides fresh-cut fruits and vegetables directly picked from our partner farms and farm houses so that you always get them tree to plate.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 d-flex flex-row justify-content-center mb-5 mt-3">
+                        <div class="wcu-main-section text-center">
+                            <img src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-responsive-website/offers-img.png" class="wcu-card-image mt-2" />
+                            <p class="wcu-card-title mt-2">Best Offers</p>
+                            <p class="wcu-card-description">Food Coupons & Offers upto 50% OFF and Exclusive Promo Codes on All Online Food Orders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-menu" id="EXPLORE-MENU-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="em-card-heading pt-5">Explore Menu</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    {% for Item in RestaurantItemsList %}
+                        <div class="col-12 col-md-6 col-lg-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                            <div class="em-items-list shadow-lg">
+                                <img src="{{Item.FoodItemImage}}" class="em-image" />
+                                <h1 class="em-heading-1" id="vm-menu-non-veg-container">{{Item.FoodItemName}}</h1>
+                                {% if Item.FoodItemName == 'Non-Veg Starters' %}
+                                    <a href="{% url 'viewmenu Non-Veg Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% elif Item.FoodItemName == 'Veg Starters' %}
+                                    <a href="{% url 'viewmenu Veg Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% elif Item.FoodItemName == 'Soups' %}
+                                    <a href="{% url 'viewmenu Soups Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% elif Item.FoodItemName == 'Fish & Sea Foods' %}
+                                    <a href="{% url 'viewmenu Fish & Sea Food Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% elif Item.FoodItemName == 'Main Course' %}
+                                    <a href="{% url 'viewmenu Main Course Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% elif Item.FoodItemName == 'Noodles' %}
+                                    <a href="{% url 'viewmenu Noodles Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% elif Item.FoodItemName == 'Salads' %}
+                                    <a href="{% url 'viewmenu Salads Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'viewmenu Desserts Section' %}" class="em-link">View All
+                                        <img src="{% static 'Star_Pattern/ViewCard.png' %}" style="height:20px;width:18px;margin-top:-4px;"/>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="food-section" id="FOODsection">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-5 text-center">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Fresh_Healthy_Organic_Delicious_Fruits_Section_Image/' %}healthy-food-plate-img.png" class="fs-image" />
+                    </div>
+                    <div class="col-12 col-md-7">
+                        <h1 class="fs-heading">Fresh, Healthy, Organic, Delicious Fruits</h1>
+                        <p class="fs-para">Say no to harmful chemicals and go fully organic with our range of fresh fruits and veggies. Pamper your body and your senses with the true and unadulterated gifts from mother nature. with the true and unadulterated gifts from mother nature.</p>
+                        <button class="btn btn-warning fs-button mb-5" data-video-url="{% url 'watch_video' %}" onclick="food_munch_fresh_healthy_organic_section(this)">Watch Video</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment-section" id="D&Psection">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-12 col-md-5 text-center order-md-2">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Delivery_and_Payment_Section_Images/' %}delivery-payment-section-img.png" class="fs-image" />
+                    </div>
+                    <div class="col-12 col-md-7 order-md-1">
+                        <h1 class="fs-heading">Delivery and Payment </h1>
+                        <p class="fs-para">Enjoy hassle-free payment with the plenitude of payment options available for you. Get live tracking and locate your food on a live map. It's quite a sight to see your food arrive to your door. Plus, you get a 5% discount on every order every time you pay online.</p>
+                        <button class="btn btn-warning fs-button mb-5" onclick="location.href='{% url 'exploremenu' %}'">Order Now</button>
+                        <div class="mb-3">
+                            <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Delivery_and_Payment_Section_Images/' %}paypal-card-img.png" class="payment-paypal" />
+                            <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Delivery_and_Payment_Section_Images/' %}visa-card-img.png" class="payment-paypal" />
+                            <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Delivery_and_Payment_Section_Images/' %}master-card-img.png" class="payment-paypal" />
+                            <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Delivery_and_Payment_Section_Images/' %}american-express-img.png" class="payment-paypal" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="thanku-section" id="TCSsection">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-7 mt-3 d-flex flex-column justify-content-center">
+                        <h1 class="thanku-heading">Thank you for being a valuable customer to us.</h1>
+                        <p class="thanku-para">We have a suprise gift for you</p>
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Thank_You_Section_Images/' %}thanking-customers-section-img.png" class="thanku-image d-md-none" />
+                        <button type="button" class="fs-button thanku-button-1 mb-5" data-toggle="modal" data-target="#exampleModal">
+                            Reedem Gift
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title model-heading-content" id="exampleModalLabel">Gift Voucher</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mt-5">
+                                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Thank_You_Section_Images/' %}gift-voucher-img.png" class="model-image" />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none d-md-block col-md-5">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Thank_You_Section_Images/' %}thanking-customers-section-img.png" class="thanku-image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="followus" id="FOLLOWUSsection">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mt-5">
+                        <h1 class="followus-heading">Follow Us</h1>
+                    </div>
+                    <div class="col-12 d-flex flex-row justify-content-center mt-3 mb-5">
+                        {% for image in Images %}
+                            <a href=""><img src="{% static image %}" alt="Social Media Image" style="width:50px;height:50px;margin-left:20px;border-radius:10px;"></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="location" id="address-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Food_Munch_Logo_Section_Image/' %}food-munch-logo.png" class="munch-navbar-image" />
+                        <p class="location-para">orderfood@foodmunch.com</p>
+                        <p class="location-para-1">12-5/1 Ayur Vigyan Nagar, New Delhi, India.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
+.Video-Title {
+    font-family:"Roboto";
+    font-size:28px;
+    color:navy;
+    font-weight:bold;
+}
+
+.Video-Upload-DateTime {
+    font-family:"Roboto";
+    font-size:18px;
+    color:gray;
+    text-align:center;
+    margin-top:30px;
+    font-weight:bold;
+}
+
+
+/* Video.css */
+
+/* Hide default controls */
+video::-webkit-media-controls {
+    display: none !important;
+}
+
+.video-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.settings-icon {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    position: relative;
+}
+
+.settings-options {
+    display: none; /* Hide by default */
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    bottom: 100%; /* Position above the icon */
+    right: 0;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.settings-options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.settings-options select {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 2px 5px;
+}
+
+.settings-icon:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}

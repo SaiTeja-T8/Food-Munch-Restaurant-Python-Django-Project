@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
+.CartHeading {
+    font-family:"Roboto";
+    font-size:24px;
+    color:black;
+    text-align:center;
+    font-weight:bold;
+}
+
+.Item-Container {
+    background-color:white;
+    background-size:cover;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e5eaf4;
+    border-radius: 10px;
+
+}
+
+.Item-Description {
+    font-family:"Roboto";
+    font-size:18px;
+    font-weight:bold;
+    color:black;
+}
+
+.ItemImage {
+    height:70px;
+    width:70px;
+    border-radius:10px;
+}
+
+.ItemName {
+    font-family:"Roboto";
+    font-size:16px;
+    font-weight:bold;
+    color:black;
+}
+
+.ItemLocation {
+    font-family:"Roboto";
+    font-size:16px;
+    font-weight:bold;
+    color:grey;
+}
+
+.EmptyCart {
+    font-family:"Roboto";
+    font-weight:18px;
+    color:black;
+    text-align:center;
+    font-weight:bold;
+}
+
+#cart-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.product-image {
+    transition: transform 0.2s;
+}
+
+.product-image:hover {
+    transform: scale(1.1);
+}
+
+.explore-items-para {
+    font-family:"Roboto";
+    font-size:38px;
+    color:green;
+    font-weight:bold;
+    text-align:center;
+}
+
+
+
+/* For falling items */
+@keyframes fall {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(150px); opacity: 0; }
+}
+
+.falling-item {
+    position: absolute;
+    z-index: 1000; /* Ensure items are on top */
+    opacity: 1;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* For truck moving */
+@keyframes moveTruck {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(300px); }
+}
+
+/* For button transforming into truck */
+.truck-button {
+    width: 100px;
+    height: 50px;
+    background-color: #333;
+    position: relative;
+    border-radius: 10px;
+}
+
+.truck-button::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -15px;
+    left: 10px;
+}
+
+.truck-button::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -15px;
+    right: 10px;
+}
+
+/* Hide original text and show new text */
+.proceeding-text {
+    display: none;
+    font-size: 18px;
+    color: green;
+    font-weight: bold;
+}
+
+#ProceedingText {
+    display: block;
+}
+
+/* Hide checkout button during animation */
+.hide-checkout {
+    display: none;
+}
+
+.truck-button {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    background-color: #C70039;
+    border-radius: 10px;
+    transition: transform 1s, width 1s, height 1s;
+}
+
+.wheel {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+    bottom: -5px;
+}
+
+.wheel-left {
+    left: 10px;
+}
+
+.wheel-right {
+    right: 10px;
+}

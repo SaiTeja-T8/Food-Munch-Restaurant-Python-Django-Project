@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="{% static 'JsCodePages/ExploreMenuSection.js' %}"></script>
+        <link rel="stylesheet" href="/static/Food_Munch_Css_Styles/Food_Munch_Explore_Menu_Section.css">
+    </head>
+    <body style="padding-top: 100px;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a href="{% url 'RestrauntMainPage' UserId %}" class="navbar-brand"><img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Food_Munch_Logo_Section_Image/' %}food-munch-logo.png" style="height:70px;width:80px;" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" id="search-products" type="search" placeholder="Search" aria-label="Search" style="outline:none;box-shadow:none;border-color:#D83F87;width:70%;border-style:solid;border-width:2px;font-family:'Roboto';font-size:18px;color:green;font-weight:bold;">
+                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left:-5px;" type="submit">Search</button>
+            </form>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'RestrauntMainPage' UserId %}" style="font-family:'Roboto';font-size:18px;color:black;font-weight:bold;">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="" style="font-family:'Roboto';font-size:18px;color:black;font-weight:bold;">Follow Us</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a style="text-decoration:none;border:none;" href="{% url 'Cart View' %}"><img src="{% static 'Star_Pattern/Shopping-Cart-Image.png' %}" style="height:35px;width:35px;border:none;" alt="Cart"/><h1 style="margin-top:-17px;font-size:18px;margin-left:25px;font-weight:bold;font-family:'Roboto';"><span style="color:#D83F87;font-weight:bold;font-family:'Roboto';">{{CartItemCount}}</span></h1></a>
+                    </li>
+                    <li class="nav-item active">
+                        <h1 style="font-family:'Roboto';font-size:18px;color:navy;margin-top:3px;font-weight:bold;" class="nav-link">Login User :  <span style="color: green;font-weight:bold;">{{LoginMember}}</span></h1>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'Log Out' %}"> <span style="color:red;font-weight:bold;font-size:18px;">Logout</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container mt-3">
+            <div class="row" id="product-list">
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Non-Veg Starters"  onclick="location.href='{% url 'viewmenu Non-Veg Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}non-veg-starters.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Non-Veg Starters</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Veg Starters" onclick="location.href='{% url 'viewmenu Veg Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}veg-starters.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Veg Starters</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Soups" onclick="location.href='{% url 'viewmenu Soups Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}soups.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Soups</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Fish & Sea Foods" onclick="location.href='{% url 'viewmenu Fish & Sea Food Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}fish-&-sea-foods.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Fish & Sea Foods</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Main Course" onclick="location.href='{% url 'viewmenu Main Course Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}main-course.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Main Course</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Noodles" onclick="location.href='{% url 'viewmenu Noodles Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}noodles.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Noodles</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Salads" onclick="location.href='{% url 'viewmenu Salads Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}salads.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Salads</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row justify-content-center mt-3 mb-3">
+                    <div class="em-items-list shadow-lg" data-title="Desserts" onclick="location.href='{% url 'viewmenu Desserts Section' %}'">
+                        <img src="{% static 'Food_Munch_Restaurant_Main_Page_Image_Container/Explore_Menu_Images_Section_Images/' %}desserts.png" class="vm-image" />
+                        <h1 class="vm-details-heading mb-3">Desserts</h1>
+                    </div>
+                </div>
+                <div id="no-products-message" style="display:none;text-align:center;font-size:25px;color:red; margin-top:20px;font-weight:bold;">
+                    No products found for your search results
+                </div>        
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/20c5629a29.js" crossorigin="anonymous"></script>
+        <script src="{% static 'JsCodePages/OtpVerification.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'Food_Munch_Css_Styles/OTP.css' %}">
+    </head>
+    <body>
+        <div class="col-12 outer-form-container d-flex flex-column justify-content-center">
+            <div class="mt-3 mb-3">
+                <div class="form-list shadow-lg">
+                    <a href="{% url 'login' %}"><img src="https://static.vecteezy.com/system/resources/previews/005/951/810/original/back-button-interface-icon-illustration-vector.jpg" style="height:40px;width:40px;"/></a>
+                    <h1 class="main-container">Enter OTP sent to your Email ID</h1>
+                    <div class="text-center">
+                        <img src="{% static 'Star_Pattern/mail.gif' %}" alt="mail-image" style="height:100px;width:200px;margin-bottom:-20px;margin-top:10px;border-radius:16px;background-color:white;"/>
+                    </div>
+                    <form method="POST" action="{% url 'Validate Otp' %}" id="SubmitForm">
+                        {% csrf_token %}
+                        <div class="OTP-Container">
+                            <input type="text" class="OTP-Input" name="Input1" id="otp1" maxlength="1">
+                            <input type="text" class="OTP-Input" name="Input2" id="otp2" maxlength="1">
+                            <input type="text" class="OTP-Input" name="Input3" id="otp3" maxlength="1">
+                            <input type="text" class="OTP-Input" name="Input4" id="otp4" maxlength="1">
+                            <input type="text" class="OTP-Input" name="Input5" id="otp5" maxlength="1">
+                            <input type="text" class="OTP-Input" name="Input6" id="otp6" maxlength="1">
+                            <input type="hidden" id="otp-value" value="{{ otp|escapejs }}">
+                        </div>
+                        <div class="mt-4" style="text-align:center;">
+                            <a href="#">Resend OTP</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
